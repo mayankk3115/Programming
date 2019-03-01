@@ -1,0 +1,105 @@
+package com.cong.SlinkedList;
+
+public class LinkedList {
+
+	Node head;
+
+	class Node {
+
+		int item;
+		Node next;
+
+		public Node(int item) {
+			this.item = item;
+			this.next = null;
+		}
+	}
+
+	public void insertItemAtFirst(int data) {
+
+		Node newNode = new Node(data);
+		newNode.next = head;
+		head = newNode;
+	}
+
+	public void insertItemAtLast(int data) {
+
+		Node newNode = new Node(data);
+
+		if (head == null) {
+			head = new Node(data);
+		}
+		newNode.next = null;
+		Node ptr = head;
+		while (ptr.next != null) {
+			ptr = ptr.next;
+
+		}
+
+		ptr.next = newNode;
+
+	}
+
+	public void insertAfter(Node node, int data) {
+		if (node == null) {
+			System.out.println("Node cannot be Null");
+		}
+		Node tmpNode = new Node(data);
+		tmpNode.next = node.next;
+		node.next = tmpNode;
+
+	}
+
+	public void deleteFirstNode() {
+
+		if (head == null) {
+			System.out.println("No elements present");
+		}
+		head = head.next;
+
+	}
+
+	public void deleteNodeAtGivenPos(int position) {
+
+		if (head == null) {
+			System.out.println("No Elements present");
+		}
+		Node tmp = head;
+		if (position == 0) {
+			head = tmp.next;
+			return;
+		}
+		for (int i = 0; tmp != null && i < position - 1; i++) {
+			tmp = tmp.next;
+
+			if (tmp == null || tmp.next == null)
+				return;
+			Node tmpPtr = tmp.next.next;
+			tmp.next = tmpPtr;
+		}
+	}
+
+	public void printList() {
+
+		Node node = head;
+		while (node != null) {
+			System.out.println(node.item + " ");
+			node = node.next;
+		}
+	}
+
+	public static void main(String[] args) {
+
+		LinkedList ll = new LinkedList();
+		ll.insertItemAtFirst(10);
+		ll.insertItemAtLast(20);
+		ll.insertItemAtLast(30);
+		ll.insertItemAtFirst(12);
+		ll.insertAfter(ll.head.next, 15);
+		// ll.deleteFirstNode();
+		//ll.deleteNodeAtGivenPos(2);
+		System.out.println("\nCreated Linked list is: ");
+		ll.printList();
+
+	}
+}
