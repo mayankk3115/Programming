@@ -1,0 +1,91 @@
+package com.cong.DlinkedList;
+
+public class DLinkedList {
+
+	Node head, tail;
+
+	class Node {
+
+		Node prev;
+		int data;
+		Node next;
+
+		public Node(int data) {
+
+			this.prev = null;
+			this.data = data;
+			this.next = null;
+		}
+
+	}
+
+	public void insertAtFirst(int item) {
+
+		Node newNode = new Node(item);
+		newNode.prev = null;
+		newNode.next = head;
+		if (head != null) {
+			head.prev = newNode;
+		}
+		head = newNode;
+	}
+
+	public void insertLast(int item) {
+
+		Node newNode = new Node(item);
+		Node tail = head;
+		newNode.next = null;
+		if (head == null) {
+			newNode.prev = null;
+			head = newNode;
+		}
+		while (tail.next != null) {
+			tail = tail.next;
+
+		}
+		tail.next = newNode;
+		newNode.prev = tail;
+
+	}
+
+	public void insertAtMiddle(int item, Node node) {
+
+		if (node == null) {
+			System.out.println("Node cant be null");
+
+		}
+		Node newNode = new Node(item);
+		newNode.next = node.next;
+		node.next = newNode;
+		newNode.prev = node;
+
+		if (newNode.next != null)
+			newNode.next.prev = newNode;
+
+	}
+
+	public void printElements(Node node) {
+
+		Node last = null;
+		while (node != null) {
+			System.out.println(node.data + " ");
+			last = node;
+			node = node.next;
+		}
+
+	}
+
+	public static void main(String[] args) {
+
+		DLinkedList dll = new DLinkedList();
+		dll.insertAtFirst(60);
+		dll.insertAtFirst(40);
+		dll.insertAtFirst(20);
+		dll.insertAtFirst(5);
+		dll.insertLast(30);
+		dll.insertAtMiddle(35, dll.head.next);
+		dll.printElements(dll.head);
+
+	}
+
+}
